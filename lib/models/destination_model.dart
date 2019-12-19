@@ -8,7 +8,7 @@ class Destination {
   List<Activity> activities;
 
   Destination({
-    this.imageUrl,
+    this.imageUrl,//These are constructors
     this.city,
     this.country,
     this.description,
