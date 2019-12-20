@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_travel_ui_starter/widgets/destination_carousel.dart';
+import 'package:flutter_travel_ui_starter/widgets/hotel_carousel.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -8,7 +10,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int currentTab = 0;
   int selectedIndex = 0;
+
   List<IconData> _icons = [
     FontAwesomeIcons.plane,
     FontAwesomeIcons.bed,
@@ -16,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
     FontAwesomeIcons.biking
 
   ];
+
   Widget buildIcon(int index){
     return GestureDetector(
       onTap: (){
@@ -35,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       );
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,10 +50,8 @@ class _HomeScreenState extends State<HomeScreen> {
           children: <Widget>[
             Padding(padding: EdgeInsets.only(left: 20,right: 120),
             child :Text('What would you like to find?',
-            style: TextStyle(
-              fontSize: 30.0,
-              fontWeight: FontWeight.bold,
-                ),
+            style: CupertinoTheme.of(context).textTheme.navLargeTitleTextStyle
+            
                )
               ),
               SizedBox(height:20),
@@ -59,10 +62,39 @@ class _HomeScreenState extends State<HomeScreen> {
                 ).toList(),
               ),
               SizedBox(height: 20,),
-              DestinationCarousel()
+              DestinationCarousel(),
+              SizedBox(height : 20),
+              HotelCarousel() 
             ],
           )
-        )
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: currentTab,
+          onTap: (int value){
+            setState(() {
+              currentTab = value;
+            });
+          },
+          items : [
+            BottomNavigationBarItem(
+            title: SizedBox.shrink(),
+            icon : Icon(
+            Icons.search,
+            size: 30,
+          )),
+          BottomNavigationBarItem(
+            title: SizedBox.shrink(),
+            icon : Icon(
+            Icons.local_pizza,
+            size: 30,
+          )),
+          BottomNavigationBarItem(
+            title: SizedBox.shrink(),
+            icon : Icon(
+            Icons.account_circle,
+            size: 30,
+          )),]
+        ),
     );
   }
 }
